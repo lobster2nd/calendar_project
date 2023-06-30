@@ -36,3 +36,7 @@ class LocalStorage:
         if _id not in self._storage:
             raise StorageException(f"{_id} not found in storage")
         del self._storage[_id]
+
+    @property
+    def storage(self):
+        return self._storage

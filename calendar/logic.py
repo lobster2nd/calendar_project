@@ -2,6 +2,15 @@ from typing import List
 
 import model
 import db
+import re
+
+
+def check_date_format(date):
+    pattern = r'^\d{4}-\d{2}-\d{2}$'
+    if re.match(pattern, date):
+        return True
+    else:
+        return False
 
 
 TITLE_LIMIT = 60
@@ -25,8 +34,11 @@ class EventLogic:
             raise LogicException(f"title length > MAX: {TITLE_LIMIT}")
         if event.text is None or len(event.text) > TEXT_LIMIT:
             raise LogicException(f"text length > MAX: {TEXT_LIMIT}")
-        if event.date in db.EventDB.list():
-            raise LogicException(f"You can add only one event to the date")
+        if not check_date_format(event.date):
+            raise LogicException(f"Invalid date format. Use YYYY-MM-DD")
+        event_db = db.EventDB()
+        if event_db.check_date_in_db(event.date):
+            raise LogicException(f"The event date already exists in the database")
 
     def create(self, event: model.Event) -> str:
         self._validate_note(event)

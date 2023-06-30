@@ -2,9 +2,9 @@ from flask import Flask, request
 
 app = Flask(__name__)
 
-
 import model
 import logic
+
 
 _event_logic = logic.EventLogic()
 
@@ -67,7 +67,7 @@ def list():
         return f"failed to LIST with: {ex}", 404
 
 
-@app.route(API_ROOT + "<_id>", methods=["GET"])
+@app.route(API_ROOT + "/<_id>/", methods=["GET"])
 def read(_id: str):
     try:
         event = _event_logic.read(_id)
@@ -77,7 +77,7 @@ def read(_id: str):
         return f"failed to READ with: {ex}", 404
 
 
-@app.route(API_ROOT + "<_id>", methods=["PUT"])
+@app.route(API_ROOT + "/<_id>/", methods=["PUT"])
 def update(_id: str):
     try:
         data = request.get_data().decode('utf-8')
@@ -88,7 +88,7 @@ def update(_id: str):
         return f"failed to UPDATE with: {ex}", 404
 
 
-@app.route(API_ROOT + "<_id>", methods=["DELETE"])
+@app.route(API_ROOT + "/<_id>/", methods=["DELETE"])
 def delete(_id: str):
     try:
         _event_logic.delete(_id)
