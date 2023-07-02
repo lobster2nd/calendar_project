@@ -36,9 +36,9 @@ class EventLogic:
             raise LogicException(f"text length > MAX: {TEXT_LIMIT}")
         if not check_date_format(event.date):
             raise LogicException(f"Invalid date format. Use YYYY-MM-DD")
-        event_db = db.EventDB()
-        if event_db.check_date_in_db(event.date):
-            raise LogicException(f"The event date already exists in the database")
+        #event_db = db.EventDB()
+        #if event_db.check_date_in_db(event.date):
+        #    raise LogicException(f"The event date already exists in the database")
 
     def create(self, event: model.Event) -> str:
         self._validate_note(event)
