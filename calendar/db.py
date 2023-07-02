@@ -12,8 +12,8 @@ class EventDB:
     def __init__(self):
         self._storage = storage.LocalStorage()
 
-    def check_date_in_db(self, date):
-        return date in self._storage.storage.items()
+    #def check_date_in_db(self, date):
+     #   return date in self._storage.storage.items()
 
     def create(self, event: model.Event) -> str:
         try:
