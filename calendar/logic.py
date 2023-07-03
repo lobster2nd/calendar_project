@@ -1,4 +1,5 @@
 from typing import List
+import requests
 
 import model
 import db
@@ -11,6 +12,16 @@ def check_date_format(date):
         return True
     else:
         return False
+
+
+def return_dates():
+    r = requests.get('http://127.0.0.1:5000/api/v1/calendar/')
+    records = str(r.content).split('\\n')
+    dates = []
+    for item in records[:-1]:
+        item = item.split('|')
+        dates.append(item[1])
+    return dates
 
 
 TITLE_LIMIT = 60
@@ -36,9 +47,10 @@ class EventLogic:
             raise LogicException(f"text length > MAX: {TEXT_LIMIT}")
         if not check_date_format(event.date):
             raise LogicException(f"Invalid date format. Use YYYY-MM-DD")
-        #event_db = db.EventDB()
-        #if event_db.check_date_in_db(event.date):
-        #    raise LogicException(f"The event date already exists in the database")
+        if event.date in return_dates():
+            raise LogicException(f"You cannot add more than one event to the date")
+
+
 
     def create(self, event: model.Event) -> str:
         self._validate_note(event)
