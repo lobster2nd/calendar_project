@@ -46,6 +46,7 @@ NOTE_API_ROOT = API_ROOT + "/event"
 
 @app.route(API_ROOT + "/", methods=["POST"])
 def create():
+    """Создание события"""
     try:
         data = request.get_data().decode('utf-8')
         event = _from_raw(data)
@@ -57,6 +58,7 @@ def create():
 
 @app.route(API_ROOT + "/", methods=["GET"])
 def list():
+    """Список событий"""
     try:
         events = _event_logic.list()
         raw_events = ""
@@ -69,6 +71,7 @@ def list():
 
 @app.route(API_ROOT + "/<_id>/", methods=["GET"])
 def read(_id: str):
+    """Получение события по id"""
     try:
         event = _event_logic.read(_id)
         raw_event = _to_raw(event)
@@ -79,6 +82,7 @@ def read(_id: str):
 
 @app.route(API_ROOT + "/<_id>/", methods=["PUT"])
 def update(_id: str):
+    """Редактирование события по id"""
     try:
         data = request.get_data().decode('utf-8')
         event = _from_raw(data)
@@ -90,6 +94,7 @@ def update(_id: str):
 
 @app.route(API_ROOT + "/<_id>/", methods=["DELETE"])
 def delete(_id: str):
+    """Удаление события по id"""
     try:
         _event_logic.delete(_id)
         return "deleted", 200
