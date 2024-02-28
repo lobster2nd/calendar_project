@@ -37,8 +37,33 @@ python3 calendar/server.py run
 — формат данных: "ГГГГ-ММ-ДД|заголовок|текст" (по аналогии с заметкой)  
 
 Эндпоинты:  
-GET http://127.0.0.1:5000//api/v1/calendar/ - список событий  
-POST http://127.0.0.1:5000//api/v1/calendar/ - добавить событие  
-GET http://127.0.0.1:5000//api/v1/calendar/<id>/ - информация о событии по id  
-PUT http://127.0.0.1:5000//api/v1/calendar/<id>/ - редактировать информацию о событии по id  
-DELETE http://127.0.0.1:5000//api/v1/calendar/<id>/ - удалить информацию о событии по id  
+
+POST http://127.0.0.1:5000/api/v1/calendar/ - добавить событие  
+Например:  
+```bash
+curl -X POST -d "2022-12-31|New Year|Celebrate" http://127.0.0.1:5000/api/v1/calendar/
+```
+  
+GET http://127.0.0.1:5000/api/v1/calendar/ - список событий  
+Например:  
+```bash
+curl http://127.0.0.1:5000/api/v1/calendar/
+```
+  
+GET http://127.0.0.1:5000/api/v1/calendar/<id> - информация о событии по id  
+Например:  
+```bash
+curl http://127.0.0.1:5000/api/v1/calendar/1/
+```
+  
+PUT http://127.0.0.1:5000/api/v1/calendar/<id> - редактировать информацию о событии по id  
+Например:  
+```bash
+curl -X PUT -d "2022-12-31|New Year|Celebrate Hard" http://127.0.0.1:5000/api/v1/calendar/1/
+``` 
+  
+DELETE http://127.0.0.1:5000/api/v1/calendar/<id> - удалить информацию о событии по id  
+Например:  
+```bash
+curl -X DELETE http://127.0.0.1:5000/api/v1/calendar/1/
+```
