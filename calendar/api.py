@@ -1,10 +1,9 @@
 from flask import Flask, request
 
-app = Flask(__name__)
-
 import model
 import logic
 
+app = Flask(__name__)
 
 _event_logic = logic.EventLogic()
 
